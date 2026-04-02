@@ -1,0 +1,1150 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+  scrollbar-width: none;
+}
+
+::selection {
+  background-color: #bbf7d0;
+  color: black;
+}
+
+/* ============================================
+   UBER-STYLE LAYOUT SYSTEM
+   ============================================ */
+
+/* Main layout container - full viewport */
+.uber-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Top Header / Navbar */
+.uber-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  min-height: 64px;
+  padding: 0 1.5rem;
+  background-color: #000000;
+  border-bottom: 1px solid #1f1f1f;
+  z-index: 30;
+}
+
+.uber-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.uber-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
+.uber-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.025em;
+}
+
+.uber-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Main Body - Left Panel + Map */
+.uber-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left Side Panel - Booking/Controls */
+.uber-left-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Desktop: Fixed width left panel */
+@media (min-width: 768px) {
+  .uber-left-panel {
+    width: 380px;
+    min-width: 380px;
+    max-width: 420px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .uber-left-panel {
+    width: 400px;
+    min-width: 400px;
+    max-width: 450px;
+  }
+}
+
+.uber-left-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* Custom scrollbar for left panel */
+.uber-left-panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.uber-left-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.uber-left-panel-content::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.uber-left-panel-content::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Right Side - Full Map Area */
+.uber-map-area {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+  background-color: #e5e7eb;
+}
+
+/* Mobile: Stack layout (panel above map) */
+@media (max-width: 767px) {
+  .uber-body {
+    flex-direction: column;
+  }
+
+  .uber-left-panel {
+    max-height: 45vh;
+    min-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .uber-map-area {
+    min-height: 55vh;
+  }
+}
+
+/* ============================================
+   PROFILE DROPDOWN COMPONENT
+   ============================================ */
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-dropdown-trigger:hover {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-avatar-initials {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.profile-dropdown-chevron {
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+
+.profile-dropdown-chevron.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 280px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  z-index: 50;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.profile-dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+}
+
+.profile-avatar-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.profile-dropdown-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-dropdown-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.profile-dropdown-email {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dropdown-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.profile-dropdown-nav {
+  padding: 0.5rem;
+}
+
+.profile-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.profile-dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+  text-decoration: none;
+}
+
+.profile-dropdown-item svg {
+  color: #6b7280;
+}
+
+.profile-dropdown-item:hover svg {
+  color: #374151;
+}
+
+.profile-dropdown-logout {
+  color: #dc2626;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
+  width: calc(100% - 1rem);
+}
+
+.profile-dropdown-logout:hover {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.profile-dropdown-logout svg {
+  color: #dc2626;
+}
+
+/* ============================================
+   BOOKING PANEL STYLES
+   ============================================ */
+
+.booking-panel-header {
+  margin-bottom: 1.5rem;
+}
+
+.booking-panel-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.booking-panel-subtitle {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Location Input Group */
+.location-input-group {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.location-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding-top: 1rem;
+}
+
+.location-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #000000;
+}
+
+.location-line-bar {
+  width: 2px;
+  flex: 1;
+  min-height: 2.5rem;
+  background-color: #000000;
+}
+
+.location-square {
+  width: 10px;
+  height: 10px;
+  background-color: #000000;
+}
+
+.location-inputs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.location-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  background-color: #f3f4f6;
+  border: 2px solid transparent;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.location-input:hover {
+  background-color: #e5e7eb;
+}
+
+.location-input:focus {
+  background-color: #ffffff;
+  border-color: #000000;
+}
+
+.location-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Suggestions dropdown */
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+/* Search Button */
+.search-ride-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #000000;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-ride-btn:hover {
+  background-color: #1f1f1f;
+}
+
+.search-ride-btn:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   MAP WRAPPER (Keep existing)
+   ============================================ */
+
+/* Map wrapper - fills all available space */
+.map-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e7eb;
+}
+
+/* Floating minimized ride badge for captain */
+.floating-ride-badge {
+  position: absolute;
+  right: 1rem;
+  bottom: 1.25rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  z-index: 20;
+  border: 2px solid #ffffff;
+}
+
+.floating-ride-badge-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background-color: #22c55e;
+}
+
+.floating-ride-badge-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   RIDE MODAL OVERLAY (Keep and enhance)
+   ============================================ */
+
+/* Ride modal overlay */
+.ride-modal-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.ride-modal-overlay.active {
+  pointer-events: auto;
+}
+
+/* ============================================
+   LEAFLET MAP CONTAINER FIXES
+   ============================================ */
+
+/* Ensure Leaflet map fills its container properly */
+.leaflet-container {
+  outline: none;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Fix for map not rendering properly on initial load */
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-objects-pane > svg,
+.leaflet-objects-pane canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Ensure map controls are visible */
+.leaflet-control {
+  position: absolute;
+  z-index: 7;
+  pointer-events: auto;
+}
+
+/* Fix map zoom buttons positioning */
+.leaflet-top,
+.leaflet-bottom {
+  position: absolute;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.leaflet-top {
+  top: 0;
+}
+
+.leaflet-bottom {
+  bottom: 0;
+}
+
+.leaflet-right {
+  right: 0;
+}
+
+/* Prevent scrolling on map */
+.leaflet-container.leaflet-touch-zoom {
+  touch-action: pan-x pan-y;
+}
+
+/* Attribution styling */
+.leaflet-attribution-flag {
+  display: inline;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0 5px;
+  margin: 0;
+  font-size: 11px;
+}
+
+/* ============================================
+   RESPONSIVE LAYOUT FIXES
+   ============================================ */
+
+/* Mobile Devices (Less than 640px) */
+@media (max-width: 640px) {
+  .leaflet-container {
+    touch-action: pan-x pan-y;
+  }
+
+  /* Adjust modal max height on mobile */
+  .ride-modal-overlay .bg-white {
+    max-height: 75vh;
+  }
+}
+
+/* Tablets (640px to 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Desktop (Greater than 1024px) */
+@media (min-width: 1025px) {
+  .leaflet-container {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* ============================================
+   Z-INDEX STACKING CONTEXT
+   ============================================ */
+
+/* Z-index layers (from bottom to top):
+   0  - Map and base content
+   10 - Captain panel / info panels
+   15 - Ride modal overlay
+   40 - Desktop sidebar
+   45 - Mobile sidebar overlay
+   50 - Mobile menu button, alerts
+*/
+
+.alert-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 1rem;
+}
+
+/* ============================================
+   SCROLLBAR AND OVERFLOW HANDLING
+   ============================================ */
+
+/* Hide scrollbar but keep functionality */
+.overflow-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================
+   TRANSITION AND ANIMATION FIXES
+   ============================================ */
+
+/* Smooth transitions for panels */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+}
+
+/* Prevent layout shift during transitions */
+.transition-all.duration-500 {
+  will-change: bottom;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ============================================
+   FORM INPUT STYLING - CONSISTENT DESIGN
+   ============================================ */
+
+/* Base input styling */
+input[type="text"],
+input[type="email"],
+input[type="phone"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
+  /* Base appearance */
+  appearance: none;
+  background-color: #f3f4f6;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  color: #1f2937;
+  transition: all 0.2s ease;
+
+  /* Remove default outline */
+  outline: none;
+}
+
+/* Input hover state */
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="phone"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover,
+textarea:hover,
+select:hover {
+  background-color: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* Input focus state - active interaction */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="phone"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  background-color: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled input state */
+input[type="text"]:disabled,
+input[type="email"]:disabled,
+input[type="phone"]:disabled,
+input[type="number"]:disabled,
+input[type="password"]:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Focus placeholder visibility */
+input:focus::placeholder,
+textarea:focus::placeholder {
+  color: #d1d5db;
+}
+
+/* ============================================
+   BUTTON STYLING - TRANSITIONS AND EFFECTS
+   ============================================ */
+
+/* Base button styling */
+button,
+[role="button"] {
+  transition: all 0.2s ease;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Primary button - black background */
+button.bg-black,
+button.variant-primary {
+  background-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button.bg-black:hover,
+button.variant-primary:hover {
+  background-color: #1f2937;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+button.bg-black:active,
+button.variant-primary:active {
+  background-color: #000000;
+  transform: translateY(0);
+}
+
+button.bg-black:focus,
+button.variant-primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Secondary button - gray background */
+button.bg-gray-200,
+button.variant-secondary {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+button.bg-gray-200:hover,
+button.variant-secondary:hover {
+  background-color: #d1d5db;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+button.bg-gray-200:active,
+button.variant-secondary:active {
+  background-color: #e5e7eb;
+  transform: translateY(0);
+}
+
+button.bg-gray-200:focus,
+button.variant-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(229, 231, 235, 0.5);
+}
+
+/* Danger button - red background */
+button.bg-red-600,
+button.variant-danger {
+  background-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.2);
+}
+
+button.bg-red-600:hover,
+button.variant-danger:hover {
+  background-color: #b91c1c;
+  box-shadow: 0 4px 6px rgba(220, 38, 38, 0.3);
+  transform: translateY(-1px);
+}
+
+button.bg-red-600:active,
+button.variant-danger:active {
+  background-color: #dc2626;
+  transform: translateY(0);
+}
+
+button.bg-red-600:focus,
+button.variant-danger:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Ghost button - transparent with border */
+button.variant-ghost,
+button.bg-transparent {
+  background-color: transparent;
+  color: #1f2937;
+  border: 1.5px solid #d1d5db;
+  box-shadow: none;
+}
+
+button.variant-ghost:hover,
+button.bg-transparent:hover {
+  background-color: #f3f4f6;
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+button.variant-ghost:active,
+button.bg-transparent:active {
+  background-color: #f3f4f6;
+  transform: translateY(0);
+}
+
+button.variant-ghost:focus,
+button.bg-transparent:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  border-color: #000000;
+}
+
+/* Disabled button state */
+button:disabled,
+[role="button"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================
+   LINK STYLING - CONSISTENT APPEARANCE
+   ============================================ */
+
+a {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #1f2937;
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+a.active {
+  color: #1f2937;
+  font-weight: 700;
+}
+
+/* ============================================
+   SPACING UTILITIES - CONSISTENT VERTICAL RHYTHM
+   ============================================ */
+
+/* Spacing scale for consistent rhythm */
+.spacing-xs {
+  margin-bottom: 0.25rem;
+}
+
+.spacing-sm {
+  margin-bottom: 0.5rem;
+}
+
+.spacing-md {
+  margin-bottom: 1rem;
+}
+
+.spacing-lg {
+  margin-bottom: 1.5rem;
+}
+
+.spacing-xl {
+  margin-bottom: 2rem;
+}
+
+/* Gap spacing for flex/grid */
+.gap-xs {
+  gap: 0.25rem;
+}
+
+.gap-sm {
+  gap: 0.5rem;
+}
+
+.gap-md {
+  gap: 1rem;
+}
+
+.gap-lg {
+  gap: 1.5rem;
+}
+
+.gap-xl {
+  gap: 2rem;
+}
+
+/* ============================================
+   HELPER TEXT AND VALIDATION STYLING
+   ============================================ */
+
+/* Error message styling */
+.error-text {
+  color: #dc2626;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Success message styling */
+.success-text {
+  color: #16a34a;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Warning message styling */
+.warning-text {
+  color: #ea580c;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Input error state */
+input.error,
+textarea.error,
+select.error {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+input.error:focus,
+textarea.error:focus,
+select.error:focus {
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY - MOBILE TO DESKTOP
+   ============================================ */
+
+/* Mobile First - Small screens (< 640px) */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Increase input padding on mobile for touch */
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    padding: 0.875rem 1rem;
+    min-height: 2.75rem;
+  }
+
+  /* Increase button padding on mobile for touch */
+  button,
+  [role="button"] {
+    min-height: 2.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Full width buttons on mobile */
+  button.w-full {
+    width: 100%;
+  }
+}
+
+/* Tablet - Medium screens (640px to 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    line-height: 1.75rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    padding: 0.75rem 1rem;
+    min-height: 2.5rem;
+  }
+
+  button,
+  [role="button"] {
+    min-height: 2.5rem;
+  }
+}
+
+/* Desktop - Large screens (> 1024px) */
+@media (min-width: 1025px) {
+  body {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="phone"],
+  input[type="number"],
+  input[type="password"],
+  textarea,
+  select {
+    padding: 0.75rem 1rem;
+    min-height: 2.5rem;
+  }
+
+  button,
+  [role="button"] {
+    min-height: 2.5rem;
+  }
+}
